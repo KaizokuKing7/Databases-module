@@ -1,0 +1,121 @@
+1.What data types do each of these values represent?
+
+string	- "A Clockwork Orange"
+integer - 42
+Date 	- 09/02/1945
+Float 	- 98.7
+Numeric	- $15.99
+
+2. Explain when a database would be used. Explain when a text file would be used.
+
+A: A database will be used when multiple instances of the program are running at once. A text file when only one instance of the program will run. 
+
+3. Describe one difference between SQL and other programming languages.
+
+Once difference would be that SQL uses = for equality rather than == like other languages.
+
+4. In your own words, explain how the pieces of a database system fit together at a high level.
+
+A: A database allows for the storage of data that might need to be quickly read, written, and changed. To do this database systems use tables and a binary file format that will normally hard to read by humans is easy with the use of a interface. 
+
+5. Explain the meaning of table, row, column, and value.
+
+Table - is used to store data in a way that is easy to see what each value means and be easily changed.
+Row - used to group values into a complete unit.
+Column - used to describe what information is stored there. 
+Value - meaning a cell in the table with a piece of information. 
+
+6. List three data types that can be used in a table.
+
+Date
+Integer
+String
+
+7. Given this payments table, provide an English description of the following queries and include their results:
+
+---
+Get the date and amount for all payments.
+
+| date                     | amount    |
+| ------------------------ | --------- |
+| 2016-05-01T00:00:00.000Z | 1500.0000 |
+| 2016-05-10T00:00:00.000Z | 37.0000   |
+| 2016-05-15T00:00:00.000Z | 124.9300  |
+| 2016-05-23T00:00:00.000Z | 54.7200   |
+
+---
+Get every payment amount over 500.
+
+| amount    |
+| --------- |
+| 1500.0000 |
+
+---
+Get all the info from every payment to Mega Foods.
+
+| date                     | payee      | amount   | memo      |
+| ------------------------ | ---------- | -------- | --------- |
+| 2016-05-15T00:00:00.000Z | Mega Foods | 124.9300 | Groceries |
+
+---
+
+8. Given this users table, write SQL queries using the following criteria and include the output:
+
+
+**Schema (PostgreSQL v9.6)**
+
+    CREATE TABLE users(
+      "userid" INTEGER,
+      "name"   VARCHAR(32),
+      "email"  VARCHAR(64),
+      "signup" DATE
+    );
+        
+    INSERT INTO users
+        ("userid", "name",              "email",                        "signup")
+    VALUES
+        ( 1,       'Aleesia Algorithm', 'aleesia.algorithm@uw.edu',     '2014-10-24'),
+        ( 2,       'DeAndre Data',      'datad@comcast.net',            '2008-01-20'),
+        ( 3,       'Chris Collection',  'chris.collection@outlook.com', '2012-01-20'),
+        ( 4,       'Brandy Boolean',    'bboolean@nasa.gov',            '1999-10-15');
+    
+    
+
+---
+
+**Query #1**
+
+    SELECT email, signup
+    FROM users
+    WHERE name = 'DeAndre Data';
+
+| email             | signup                   |
+| ----------------- | ------------------------ |
+| datad@comcast.net | 2008-01-20T00:00:00.000Z |
+
+---
+**Query #2**
+
+    SELECT userid
+    FROM users
+    WHERE email =  'aleesia.algorithm@uw.edu';
+
+| userid |
+| ------ |
+| 1      |
+
+---
+**Query #3**
+
+    SELECT *
+    FROM users
+    WHERE userid = 4;
+
+| userid | name           | email             | signup                   |
+| ------ | -------------- | ----------------- | ------------------------ |
+| 4      | Brandy Boolean | bboolean@nasa.gov | 1999-10-15T00:00:00.000Z |
+
+---
+
+[View on DB Fiddle](https://www.db-fiddle.com/f/iQAEYktwysXqcLQHv2dwbc/0)
+
