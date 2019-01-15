@@ -1,0 +1,109 @@
+1. List the commands for adding, updating, and deleting data.
+
+INSERT INTO
+UPDATE
+DELETE
+
+2. Explain the structure for each type of command.
+
+INSERT INTO - First you must name the table the data is going into. Then use VALUES to insert the data.  
+
+UPDATE 		- First you must name the table to update then using SET pick the column being changed then use WHERE to pick which rows get changed.
+
+DELETE 		- First you must name the table using DELETE FROM. Then use WHERE to specify the row
+
+3. What are some of the data types that can be used in tables? Give a real-world example of each type.
+
+integer - could be ages or price
+text - names or descriptions 
+boolean - is dish clean true or false
+
+4. Decide how to create a new table to hold a list of people invited to a wedding dinner. The table needs to have first and last names, whether they sent in their RSVP, the number of guests they are bringing, and the number of meals (1 for adults and 1/2 for children).
+
+create Table wedding (
+	name text,
+    RSVP boolean,
+    guest integer,
+    meals numeric(2,1)
+);
+    
+INSERT INTO wedding (name,RSVP,guest,meals)
+VALUES 
+   	('Stanley Pierre-Canel',true,3,2.5),
+   	('Fred Flintstone',false,0,1.0),
+	('Carl Winslow',true,4,3.5);
+
+
+Alter Table wedding ADD Column card boolean;
+Alter Table wedding DROP COLUMN meals;
+Alter Table wedding ADD Column table_id integer;
+DROP TABLE wedding;
+
+5. Write a command to create a new table to hold the books in a library with the columns ISBN, title, author, genre, publishing date, number of copies, and available copies.
+
+create Table Library (
+	ISBN numeric,
+    title text,
+    author text,
+    genre text,
+	publishing_date date,
+	copies numeric,
+	available_copies numeric
+);
+
+INSERT INTO Library (ISBN,title,author,genre,publishing_date,copies,available_copies)
+VALUES 
+   	(0439139597, 'Harry Potter And The Goblet Of Fire','J.K. Rowling','Fantasy Fiction','07-8-2000',65000000,65000000),
+   	(0048230464 ,'The lord of the rings','	J R R Tolkien','Fiction','07-29-1954',150000000,150000000),
+	(9780062658753,'Charlottes Web','E. B. White','	Children','10-15-1952',50000000,50000000);
+
+Update Library set available_copies = available_copies -1 where ISBN =  0439139597;
+delete from Library where ISBN =  0048230464;
+
+6.
+
+create Table Spacecraft (
+	id integer,
+	name text,
+	launch_date date,
+	origin text,
+	mission_discription text,
+  	orbit text,
+  	operating boolean,
+  	miles_away integer
+);
+
+INSERT INTO Spacecraft (id,name,launch_date,origin,mission_discription,orbit,operating,miles_away)
+VALUES
+	(21,'Sputnik','10-04-1957','Sovien Union','1st man-made object placed into orbit around Earth','earth',false,359),
+	(108,'Shenzhou','11-19-1999','China','Piloted spaceship test flight','earth',false,null),
+	(128,'KOMPSAT','12-21-1999','Korea','KOMPSAT is an experimental South Korean spacecraft that carries remote sensing instruments for providing digital cartography of Korea and status of marine biology.','earth',true,null);
+
+	
+delete from Spacecraft where id = 108;
+update spacecraft set operating = false where id = 128;
+
+7.
+
+create Table Email (
+	id integer,
+	subject text,
+	sender text,
+	additonal_recipients text,
+	body text,
+  	timestamp date,
+  	read boolean,
+  	emailchain_id integer
+);
+
+INSERT INTO Email 
+(id,subject,sender,additonal_recipients,body,timestamp,read,emailchain_id)
+VALUES 
+(1,'new deals from storemart','Storemart',null,'New deals include ....','01/02/2019',false,6),
+(2,'Hey old friend from college','Michael',null,'Hey I moved back into the area and wanted to talk more...','01/08/2019',true,3),
+(3,'Your package delivery','Amazon',null,'Your new computer has arrived ....','12/19/2018',true,5);
+
+delete from Email where id = 3;
+update Email set read = false 
+where id = 2;
+
