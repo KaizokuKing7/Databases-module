@@ -1,0 +1,106 @@
+1. How do you find related data held in two separate data tables?
+
+By using the INNER JOIN command.
+
+2. Explain, in your own words, the difference between an INNER JOIN, LEFT OUTER JOIN, and RIGHT OUTER JOIN. Give a real-world example for each.
+
+INNER JOIN is used to compared and join all related data between two tables
+Ex. A list of patients at hospital room and a list of nurses assigned to that hospital room could use inner join to see how many patients and nurses belong to a room.
+
+LEFT OUTER JOIN is used to included everything from the first table and only some from the second table. 
+Ex. A classroom's list of students and the daily attendace could be one as the list of students will always apear but   
+
+RIGHT OUTER JOIN is used to included everything from the second table and only some from the first table.
+Ex.
+
+3. Define primary key and foreign key. Give a real-world example for each.
+
+primary key - Is the unique key among the table for a row.
+ex. Our SSN numbers could be used as a primary key as they are always unique
+
+foreign key - the primary key for another table that is not unique.
+ex. Could be license plates as many could be the same.
+
+4. Define aliasing.
+
+A: Aliasing is abbreviating names to to replace long table names in a query.
+
+5. Change this query so that you are using aliasing:
+
+SELECT p.name, c.salary,
+compensation.vacation_days 
+FROM professor AS p 
+JOIN compensation AS c
+ON p.id = c.professor_id;
+
+6. Why would you use a NATURAL JOIN? Give a real-world example.
+
+A: you would use natural join when you wanted to only join tables based on shared columns 
+
+7. Using this Employee schema and data, write queries to find the following information:
+
+select *
+from shifts;
+
+select *
+from employees;
+
+8. Using this Adoption schema and data, please write queries to retrieve the following information and include the results:
+
+-Create a list of all volunteers. If the volunteer is fostering a dog, include each 	dog as well.
+	select v.*, d.*
+	from volunteers as v
+	left outer join dogs as d
+	on v.foster_dog_id = d.id;
+
+-The cat's name, adopter's name, and adopted date for each cat adopted within the past month to be displayed as part of the "Happy Tail" social media promotion which posts recent successful adoptions. 
+	select cats.name, adopters.first_name, adopters.last_name, cat_adoptions.date
+	from cat_adoptions
+	left join cats
+	on cats.id = cat_adoptions.cat_id
+	left join adopters 
+	where adopters.id = cat_adoptions.adopter_id and cat_adoptions.date >= current_date - interval '31 days';
+
+-Create a list of adopters who have not yet chosen a dog to adopt.
+	select adopters.*
+	from adopters,dog_adoptions
+	where dog_adoptions.adopter_id != adopters.id;
+	
+-Lists of all cats and all dogs who have not been adopted.
+	select c.name
+	from cats as c
+	left outer join cat_adoptions as a
+	on c.id = a.cat_id
+	where a.date is null
+	union
+	select dogs.name
+	from dogs
+	left outer join dog_adoptions
+	on dogs.id = dog_adoptions.dog_id
+	where dog_adoptions.date is null;
+
+-The name of the person who adopted Rosco.
+	select a.first_name, a.last_name
+	from adopters as a,dog_adoptions
+	where a.id = dog_adoptions.adopter_id;
+
+9. Using this Library schema and data, write queries applying the following scenarios and include the results:
+
+-To determine if the library should buy more copies of a given book, please provide the names and position, in order, of all of the patrons with a hold (request for a book with all copies checked out) on "Advanced Potion-Making".
+	select p.name, h.rank, b.title
+	from patrons as p
+	left outer join holds as h
+	on p.id = h.patron_id
+	left outer join books as b
+	on h.isbn = b.isbn
+	where b.title = 'Advanced Potion-Making'
+	order by h.rank;
+
+-List all of the library patrons. If they have one or more books checked out, list the books with the patrons.
+	select p.name, b.title
+	from patrons as p
+	left outer join transactions as t
+	on p.id = t.patron_id
+	left outer join books as b
+	on b.isbn = t.isbn
+	where t.checked_in_date is null;
